@@ -1,0 +1,73 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Words-to-Symbols (Transmitter) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34127</md:content-id>
+  <md:title>Words-to-Symbols (Transmitter) (LabVIEW)</md:title>
+  <md:abstract>This is the educational tutorial for creating a bit-word to complex symbol map. Though a simple function, it is certainly key to implementing the OFDM transmitter chain, and will become equally important when retrieving the data on the other end of the transceiver.</md:abstract>
+  <md:uuid>7fb12ea4-24ce-4dfd-a7c1-1e6606107e70</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="w2sym_help" display="block" alt="Words-to-Symbols Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/w2sym_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Words-to-Symbols Sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">The above Figure (Figure 1) shows the Words-to-Symbols function. This is fairly straightforward: in band limited channels, we cannot send a square-wave stream of 1's and 0's. More importantly, we'd like to leverage OFDM's attractive properties and transmit many data streams on multiple carriers.</para>
+
+<para id="fs-id1171928534815">Thus we must take each word (itself a group of bits), and assign it a unique complex signal. This is where any popular scheme is chosen such as BPSK, M-ary QAM, etc. By simply defining the word-to-symbol map, the numbers the words represent in the base 10 (decimal) system index elements in the map and the conversion is done.</para>
+
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="w2sym_layout" display="block" alt="Word-to-Symbols Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/w2sym_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Words-to-Symbols sub-VI.</caption>
+</figure>
+
+
+</para><para id="fs-id18908739">Figure 2 shows this simple process. As an example, let's say the bit-word is 110. LabVIEW's convention would read this as decimal 3, as the first item in the array is seen as the least significant bit (LSB). Next, we index our symbol array with decimal 3. Thus, entry 3 of our word-to-symbol map (which better have 8 unique entries in this example) will be the symbol representing the bit stream 110, say 4+4i. This complex amplitude is then stored in the output stream of parallel words, eventually to occupy an FFT bin.</para>
+
+
+<para id="fs-id1171942758809">The only potential pitfall here is the use of indexing. When an array is fed into a for loop, you can right click the entry point and enable indexing. This will present inside the loop the element corresponding to that iteration of the loop. In other words, the first time around, we're going to access the first bit-word (0th element), the second time around the second word etc. In that vein, we also build our output array in the same iterative fashion by indexing it as well.</para>
+
+
+<para id="fs-id1171917514746">If you are still confused on how this works, check out the tutorial video below, the example usage video in Figure 4 or email the author for more questions. The sub-VI is available below for download.</para>
+
+<para id="fs-id1164298671449">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a Words-to-Symbols Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/ScB9H3OQpWA&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the Words-to-Symbols sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1172451669165"><figure id="movie2">
+ <title>Example Video</title>
+ <media id="yt-media2" display="block" alt="LabVIEW Example on using the Words-to-Symbols Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/l_pRPWRVvy0&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ <caption>This is the example video for using the Words-to-Symbols sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="w2sym.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+  </para>
+</content>
+
+</document>

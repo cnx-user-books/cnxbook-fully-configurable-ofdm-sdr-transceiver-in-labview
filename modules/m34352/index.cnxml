@@ -1,0 +1,52 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>References</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34352</md:content-id>
+  <md:title>References</md:title>
+  <md:abstract>This is an incomplete list of references used in the creation of this project. To acknowledge and trace every source of every bit of information contained here would be an intractable exercise in futility. That said, I want to thank everyone and anyone not explicitly mentioned in this list that had any hand in making this project a reality. I could not have done it without you. Thank you.</md:abstract>
+  <md:uuid>5cbb5455-92db-4912-9f8c-ba7719c2f156</md:uuid>
+</metadata>
+
+<content>
+<para id="thanks">
+SPECIAL THANKS:
+</para>
+<para id="fs-id1168794512823">My beautiful wife Aimee, Dr. Christopher Schmitz, Dr. Douglas Jones, Aditya Jain, Steve Jian, Christopher Li.
+</para>
+<para id="fs-id1168794340656">
+</para>
+<para id="fs-id1168793437030">
+</para>
+<para id="fs-id1168794437030">
+</para>
+  <para id="ref">
+REFERENCES:
+  </para>
+<para id="fs-id1168795189104">
+[1] L. Couch, “Digital and Analog Communication Systems,” 2007.
+</para>
+<para id="fs-id1168806310717">
+[2] B. Farhang-Boroujeny, “Signal Processing Techniques for Software Radios,” 2008.
+</para>
+<para id="fs-id1168794494642">
+[3] C. Li, C. Schmitz, and A. Muehlfeld, “Building FPGA Communications Projects with LabVIEW,” Connexions. August 16, 2009. Available: http://cnx.org/content/m31349/latest. [Accessed: Oct. 16, 2009].
+</para>
+<para id="fs-id1168795190241">
+[4] T. Schmidl and D. Cox, “Robust Frequency and Timing Synchronization for OFDM,” IEEE Transactions on Communications, vol. 45, no. 12, pp. 1613-1621, Dec. 1997.
+</para>
+<para id="fs-id1168795170426">
+[5] P. Koch and R. Prasad, “The Universal Handset,” IEEE Spectrum, vol. 36, no. 4, pp. 36-41, Apr. 2009.
+</para>
+<para id="fs-id1168794565278">
+[6] C. Langton, “Orthogonal Frequency Division Multiplexing (OFDM) Tutorial,” Complex2Real.com: Intuitive Guide to Principles of Communications. 2004. Available: http://www.complextoreal.com/chapters/ofdm2.pdf. [Accessed: Oct. 16, 2009].
+</para>
+<para id="fs-id1168796373030">
+[7] H. Minn, M. Zeng, and V. K. Bhargava, “On Timing Offset Estimation for OFDM Systems,” IEEE Communications Letters, vol. 4, no. 7, pp. 242-244, Jul. 2000.
+</para>
+<para id="fs-id1169858298216">
+[8] C. Schmitz, “ECE 463: Digital Communications Laboratory,” ECE Illinois. Spring 2010. Available: http://courses.ece.illinois.edu/ece463/SP10/index.html. [Accessed: May. 1, 2010].
+</para>
+</content>
+
+</document>

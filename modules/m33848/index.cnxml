@@ -1,0 +1,49 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Frequency Synchronization (Receiver) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m33848</md:content-id>
+  <md:title>Frequency Synchronization (Receiver) (MATLAB)</md:title>
+  <md:abstract>When an OFDM symbol is received, there is almost a guarantee the mixing frequency will be out of phase and slightly different than the carrier frequency. This algorithm is designed to eliminate this inconsistency by way of a predetermined training symbol.
+This module code will soon be supplanted by a more modern algorithm. For BPSK, we can model the frequency offset as a constant phase offset and the algorithm works fine. For more general forms of Quadrature Amplitude Modulation (QAM), this does not suffice.<emphasis> NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the receiver for the most current version.</emphasis></md:abstract>
+  <md:uuid>e097ff78-f2b2-4b56-b5ff-0116f760a120</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me"><!-- Insert module text here -->
+  <code id="eip-id1171389183319" display="block">
+%% Frequency Synchronization (RECEIVER)
+%  ------------------------------------------------------------------------
+%  Description: This module attempts to correct the frequency/phase offset
+%               in the recovered signal by estimating it as a static phase
+%               offset. Though there may be a frequency offset or even a
+%               frequency drift, for BPSK, estimating this as a fixed phase
+%               offset is sufficient in recovering the bits. More often
+%               than not this corrects the recovered bits when they're
+%               inverted (estimated as a pi phase offset). This uses the
+%               same metric as the timing recovery to find the phase.
+%
+%  Inputs: train - Received training symbol
+%          train_expected - Expected training symbol via a priori knowledge
+%  Outputs: phi - Estimated phase offset
+ 
+function phi = fsync(train, train_expected)
+%%
+     L = size(train,2); % Size of window for algorithm
+     P = 0; % Initialize the metric
+ 
+     for n=1:L
+         P = P + conj(train(n))*train_expected(n);
+         % Sample by sample multiplication of the complex conjugate of the
+         % received training symbol with the expected training symbol. If
+         % both of them are in phase, the imaginary components would
+         % annhiliate each other. However, if there's a phase offset
+         % between the two, it will be represented in the angle of the
+         % resulting product.
+     end
+    phi = angle(P);
+end
+</code></para>
+</content>
+
+</document>

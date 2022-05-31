@@ -1,0 +1,65 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>FFT-to-Symbols (Receiver) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34351</md:content-id>
+  <md:title>FFT-to-Symbols (Receiver) (LabVIEW)</md:title>
+  <md:abstract>Once we've obtained our complex baseband data we need to recover the subcarriers. Because they were created using the Inverse Fast Fourier Transform (IFFT), we simply need to reverse the operation by taking the FFT. Once this is done, we will generally have a certain number of transmitted zeros between the positive and negative frequency bins that need to be removed to output our received data symbols.</md:abstract>
+  <md:uuid>c36d5034-a60b-45d0-907a-a3440bab6a22</md:uuid>
+</metadata>
+
+<content>
+ <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="fft2sym_help" display="block" alt="FFT-to-Symbols Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/fft2sym_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the FFT-to-Symbols sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">Shown above is the sub-VI to be discussed next. Once we receive our time domain signal, we need to recover the subcarriers and ultimately the data they contain. We took the IFFT at the transmitter, and so it is a simple matter of taking the FFT and removing the padded zeros.</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="fft2sym_layout" display="block" alt="FFT-to-Symbols Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/fft2sym_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the FFT-to-Symbols sub-VI.</caption>
+</figure>
+</para><para id="fs-id18908739">
+Figure 2 shows the block diagram of our implementation available for download below. After taking the FFT, we simply determine how much of the spectrum should be data, and remove it from the rest of the array. While we transmitted a specific number of zeros in between the positive and negative frequencies, they will no doubt take on some small non-zero value after realistic travel through a non-software medium.</para>
+
+<para id="fs-id1164304202892">The only real logic is in dividing the number of subcarriers by 2 to determine if we have an even or odd number of subcarriers. If even, we can throw away the first data point as it is simply an injected carrier (or nothing). However, if odd, it instead contains a data point for the odd subcarrier and must be preserved in the output. For additional information, check out the tutorial video in Figure 3, the example video in Figure 4, or email the author with any questions.</para>
+
+<para id="fs-id1171254397078">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a FFT-to-Symbols Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/6uZ5N1cR7CA&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the FFT-to-Symbols sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1171254760954">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the FFT-to-Symbols Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/1GJqHmOhk28&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the example video for using the FFT-to-Symbols sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="fft2sym.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+
+  </para>
+</content>
+
+</document>

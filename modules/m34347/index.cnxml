@@ -1,0 +1,65 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Frequency Synchronization (Receiver) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34347</md:content-id>
+  <md:title>Frequency Synchronization (Receiver) (LabVIEW)</md:title>
+  <md:abstract>In this module we implement a simple complex downconversion based on a predetermined frequency offset. The reason for complex (by way of complex exponential multiplication) is because we expect (in general) no conjugate symmetry for our incoming signal. Embedded is a tutorial video on the construction of the sub-VI, as well as an example video on how to use the function. The file is available for download below.</md:abstract>
+  <md:uuid>67240fc2-3d72-41f3-8719-291b3959396f</md:uuid>
+</metadata>
+
+<content>
+<para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="freqsync_help" display="block" alt="Frequency Synchronization Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/freqsync_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Frequency Synchronization sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">The Frequency Synchronization sub-VI in the OFDM transmitter is shown above in Figure 1. The motivation behind this sub-VI arises because we assume in general we have a complex baseband OFDM symbol. As a result, any frequency offset from noncoherence up until this point must be corrected by a complex downconversion. Of course, maintaining coherence is crucial in preserving the orthogonality of the subcarriers and ultimately in distortionless recovery of the data.</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="freqsync_layout" display="block" alt="Frequency Synchronization Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/freqsync_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Frequency Synchronization sub-VI.</caption>
+</figure>
+</para><para id="fs-id18908739">
+Figure 2 shows a LabVIEW implementation of this downconversion and is available for download below. The only potentially unseen function for the new LabVIEW user is the compound arithmetic function. This can be found in the numeric menu. Once placed in your VI, you must right-click the block and choose the arithmetic operation you desire (multiplication in our case). Note also that indexing is enabled for ease of implementation.</para>
+
+<para id="fs-id1164304202892">For all general questions, check out the instructional video below in Figure 3, the example use video below in Figure 4, or email the author for more information.</para>
+
+<para id="fs-id1168472722434">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a Frequency Synchronization Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/FBN7BC6CA0A&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the Frequency Synchronization sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1168452399718">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the Frequency Synchronization Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/haxRSUTu9Gg&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the example video for using the Frequency Synchronization sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="freqsync.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+
+  </para>
+</content>
+
+</document>

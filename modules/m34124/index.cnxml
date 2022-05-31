@@ -1,0 +1,131 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Windowing (Transmitter) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34124</md:content-id>
+  <md:title>Windowing (Transmitter) (LabVIEW)</md:title>
+  <md:abstract>This module demonstrates a LabVIEW implementation of a window function in an OFDM system. It also demonstrates why windowing is so critical in this particular case.</md:abstract>
+  <md:uuid>44b5fd8f-c1f2-4aa7-9d9d-91df94d8b3d5</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="window_help" display="block" alt="Window Inputs/Outputs and Help in   LabVIEW">  
+     <image mime-type="image/png" src="../../media/window_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Window Sub-
+
+VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">The above figure shows the sub-VI snapshot of the rather 
+
+simple module that windows the outgoing signal. This VI can be imperative in certain 
+
+systems. The reason it becomes critical is the inevitable discontinuity that will 
+
+arise between OFDM symbols.</para>
+
+<para id="fs-id1171022362019">If this is unclear, make sure you understand just how OFDM symbols are 
+
+synthesized. The signals are built from symbol placement in the frequency domain at harmonics of 
+
+the fundamental. As a result, there is no time-domain cohesiveness between symbols 
+
+(or at least it occurs rarely). This is the same property (essentially) that plagues 
+
+OFDM systems in the form of peak-to-average power ratios.</para>
+
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="window_layout" display="block" alt="Window Layout Block Diagram in   LabVIEW">  
+     <image mime-type="image/png" src="../../media/window_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Window sub-VI.</caption>
+</figure>
+
+
+</para><para id="fs-id18908739">Pictured above is the LabVIEW block diagram 
+
+implementation of the windowing process. Thankfully, almost all prominent window 
+
+functions are built into LabVIEW. The windowing process consists of a simple 
+
+multiplication in the time-domain. Those familiar with Fourier decomposition will 
+
+recognize this corresponds to convolving in the frequency domain. Usually, practical 
+
+windowing involves emphasizing the middle of the time domain signal, and 
+
+deemphasizing the beginning and the end of the signal.</para>
+
+
+
+<para id="fs-id1164304202892">The reason for this deemphasis stems from the 
+
+fundamental (but covert) function the Discrete Fourier Transform (DFT) performs. 
+
+While subtle, it's important to note that by taking the DFT of a signal, one is 
+
+enforcing periodicty of that signal. That is, we are transforming the signal into the 
+
+frequency domain under the assumption that the input repeats in the time-domain 
+
+indefinitely. As a result, the un-windowed signal (or equivalently, rectangularly 
+
+windowed signals) present serious flaws from this poor assumption. This is especially 
+
+manifested in our situation in which discontinuities are almost guarunteed to occur. 
+
+Therefore, deemphasizing the end points, and consequently the discontinuities, proves 
+
+fruitful.</para>
+
+
+<para id="fs-id1171009254571">The only slight of hand in the LabVIEW implementation is the window selection 
+
+method. After creating a case structure, simply naming the various windows with 
+
+strings and inserting them suffices. However, in the interest of user-friendliness, 
+
+an effective interface is needed. By creating a menu-ring, the options easily present 
+
+themselves, and a simple array index operation allows us to access the case structure 
+
+with ease. For more information, check out the instructional tutorial below, the example video in Figure 4, or email the 
+
+author.</para>
+
+<para id="fs-id1164298671449">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a   Windowing Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/BDdNJam9xOU&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the windowing sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1169858585464">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the Windowing Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/QfGp69bniVo&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the example video for using the windowing sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="window.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+  </para>
+</content>
+
+</document>

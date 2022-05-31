@@ -1,0 +1,85 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Bits-to-Words (Transmitter) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34120</md:content-id>
+  <md:title>Bits-to-Words (Transmitter) (LabVIEW)</md:title>
+  <md:abstract>This is a seemingly trivial sub-VI that converts a parallel stream of bits to a parallel group of bit-words. While it could easily be done without a sub-VI, it's always important to practice modularity and simplicity for readability in the overall design. This makes the debugging and modification process, an inevitability, much simpler in the future.</md:abstract>
+  <md:uuid>56905c4e-d9ea-4839-a830-97f46e2ea9dc</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="b2w_help" display="block" alt="Bits-to-Words Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/b2w_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Bits-to-Words sub-
+
+VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">The sub-VI for the rather trivial operation of converting a 
+
+string of bits to bit-words is shown above in Figure 1. Only basic knowledge of 
+
+LabVIEW is required to implement this module. While some may argue it's trivial and 
+
+non-deserving of its own sub-VI, modularity and readability still prevail in good 
+
+design technique, and this transmitter is no exception.</para>
+
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="b2w_layout" display="block" alt="Bits-to-Words Layout Block Diagram in   LabVIEW">  
+     <image mime-type="image/png" src="../../media/b2w_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Bits-to-Words sub-VI.</caption>
+</figure>
+
+
+</para><para id="fs-id18908739">Figure 2 above shows the block diagram layout. The 
+
+parallel bits are taken as an input and fed into the built-in LabVIEW function 
+
+"Reshape Array," which groups the number of bits appropriately.</para>
+
+
+
+<para id="fs-id1164304202892">For the logisitics in actually constructing this 
+
+function, see the video below. For any additional questions, the example usage video in Figure 4, or email the author.</para>
+
+<para id="fs-id1164298671449">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a Bits-to-Words Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/JGGlo6h3SYA&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the Bits-to-Words sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1165558758547">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the Bits-to-Words Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/Bth8nkZ9C5A&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+
+<caption>This is the example video for using the Bits-to-Words sub-VI.</caption></figure>
+</para>
+
+
+<para id="fs-id1164299023324">
+<link url="b2w.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+  </para>
+</content>
+
+</document>

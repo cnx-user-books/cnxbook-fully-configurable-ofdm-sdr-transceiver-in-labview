@@ -1,0 +1,29 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Words-to-Symbols (Transmitter) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34142</md:content-id>
+  <md:title>Words-to-Symbols (Transmitter) (MATLAB)</md:title>
+  <md:abstract>This code coverts a set of binary words to a set of complex symbols through the use of decimal indexing of a word-to-symbol map.
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the transmitter for the most current version.</emphasis></md:abstract>
+  <md:uuid>dd5a5c82-7ad7-430f-bc4d-7311a5aba656</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<code id="fs-id1169845096675" display="block">
+%% Words to Symbols
+function symbols = w2sym(words, word_to_symbol_map, bits_per_symbol)
+%%
+    num_subcarriers = size(words,1);
+    symbols = zeros(1,num_subcarriers);
+
+    for n=1:num_subcarriers
+        symbols(1,n) = word_to_symbol_map(binvec2dec(fliplr(words(n, 1:bits_per_symbol)))+1);
+    end
+end
+</code>
+  </para>
+</content>
+
+</document>

@@ -1,0 +1,69 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>OFDM Symbol Decoder (Receiver) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m33852</md:content-id>
+  <md:title>OFDM Symbol Decoder (Receiver) (MATLAB)</md:title>
+  <md:abstract>This file brings together all of the previous files into one MATLAB interface. With one command, and the right parameters, one can successfully receive one training symbol and one data symbol.
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the receiver for the most current version.</emphasis></md:abstract>
+  <md:uuid>2f42ce95-68aa-4eb4-bd31-7cab58f0afc6</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me"><code id="eip-id7864712" display="block">
+%% Demodulate Baseband OFDM Signal (RECEIVER)
+%  ------------------------------------------------------------------------
+%  Description: This is the receiver module in its entirity. It combines
+%               all of the sub-processes and parameters to ultimately take
+%               a sequency of training symbol and valid OFDM symbol, and
+%               output the modulated bits.
+%
+%  Inputs: word_to_symbol_map - The complex symbols indexed by the binary
+%                               word they represent.
+%          num_subcarriers - The number of subcarriers in the symbol
+%          size_of_fft - Size of FFT used for correct indexing/timing
+%          train_pn - Pseudo-noise used in transmitted training symbol (a
+%                     priori knowledge)
+%  Outputs: bits - Demodulated bits
+ 
+function bits = ofdm_dem(word_to_symbol_map, num_subcarriers, size_of_fft, train_pn)
+%%
+% Calculated the expected training symbol from the given pseudo-noise for
+% adequate phase recovery.
+train_expected = zeros(1,size_of_fft);
+train_expected(3) = train_pn(1);
+train_expected(size_of_fft-1) = train_pn(1+size(train_pn,2)/2);
+train_expected = ifft(4*train_expected);
+z = get_input(); % Parse input data
+z = z'; % Convert from column vector to row vector to accomidate sub-processes
+% Invoke timing algorithm to retrieve sample that training symbol starts on
+[index value] = tsync(z,size_of_fft);
+train = z(index:index+size_of_fft-1); % Cut out training symbol
+phi = fsync(train, train_expected); % Estimate phase offset
+% Cut out OFDM data symbol and correct for phase offset
+z = z(index+size_of_fft:index+2*size_of_fft-1).*exp(j*phi);
+ 
+% Separate the data symbol into two channels and take FFT for analysis
+% below
+re = real(z);
+im = imag(z);
+Z = fft(z);
+ 
+symbols = fft2sym(re,im,num_subcarriers); % Take FFT and retrieve symbols
+words = sym2w(symbols,word_to_symbol_map); % Find closest match and map words to symbols
+bits = fliplr(w2b(words)); % Decompress words into a series of bits for recovery.
+ 
+% Output the resulting data for debugging and analysis
+subplot(5,2,1); plot(real(train)); title('Re[Training Symbol]');
+subplot(5,2,2); plot(imag(train)); title('Im[Training Symbol]');
+subplot(5,2,3); plot(re); title('Re[OFDM Data Symbol]');
+subplot(5,2,4); plot(im); title('Im[OFDM Data Symbol]');
+subplot(5,2,[5 6]); plot(abs(Z)); title('Mag[OFDM Data Symbol Spectrum]');
+subplot(5,2,[7 8]); stem(real(Z)); title('Re[OFDM Data Symbol Spectrum]');
+subplot(5,2,[9 10]); stem(imag(Z)); title('Im[OFDM Data Symbol Spectrum]');
+ 
+end
+</code></para>
+</content>
+
+</document>

@@ -1,0 +1,70 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Time Synchronizaton (Receiver) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m33829</md:content-id>
+  <md:title>Time Synchronizaton (Receiver) (MATLAB)</md:title>
+  <md:abstract>This demonstrates how to recover the symbol timing in an OFDM communications system. It relies on a training symbol and a timing metric in order to find the end of the cyclic prefix and the start of the OFDM frame.
+This module code will soon be supplanted by a more modern algorithm. There is an inherit plateau of uncertainty in the symbol timing with cyclic prefix, a necessity in wireless applications. More modern algorithms and training symbols more effectively reject the cyclic prefix and give a more accurate location of the start of the frame.
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the receiver for the most current version.</emphasis></md:abstract>
+  <md:uuid>4c0bd790-305e-4ffe-ba6c-000df73e132f</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me"><code id="eip-id12878609" display="block">
+%% Time Synchronization (RECEIVER)
+%  ------------------------------------------------------------------------
+%  Description: This implements Schmidl and Cox's symbol frame timing
+%               synchronization algorithm. The idea is that by zeroing out
+%               the odd frequencies for the training symbol, we produce an
+%               OFDM symbol that has two periods within the normal OFDM
+%               symbol frame, whereas a normal symbol has only one period.
+%               By sliding a window in time and multiplying sample by
+%               sample two successive windows of length half of the normal
+%               symbol and one of them conjugated, the magnitude peak
+%               should hit '1' and represent the exact start of the frame
+%               for the training symbol. Thus it as well as the data symbol
+%               can be extracted
+%
+%  Inputs: signal - Input waveform, sampled from LABVIEW
+%          size_of_fft - Size of fft for symbol size
+%  Outputs: index - Index of start of timing frame
+%           agc - Automatic gain control factor
+ 
+function [index agc] = tsync(signal, size_of_fft)
+%%
+    signal_size = size(signal,2); % Signal size
+    L = size_of_fft/2; % Length of sliding window
+    slide_length = signal_size-size_of_fft+1; % Total window slide length
+    P = zeros(1,slide_length); % Initilize the arrays
+    R = zeros(1,slide_length);
+    
+    for n=1:slide_length
+        for m=1:L
+            P(n) = P(n) + conj(signal(n+m-1))*signal(n+m+L-1);
+            % Conjugate pair
+            R(n) = R(n) + abs(signal(n+m+L-1))^2; % Normalizing factor
+        end
+    end
+    M = (abs(P).^2);%./(R.^2);
+    % This is the actual timing metric used. Note the algorithm calls for
+    % the normalization factor. However, due to peak-to-average power
+    % issues, we experienced issues with the algorithm choosing false peaks
+    % that were greater than 1. After much experimenting, removing the
+    % normalization factor and boosting the signal power of just the
+    % odd-channels in the training symbols made this algorithm robust.
+    for n=1:slide_length
+        [value index] = max(M); % Find peak
+        if((index+2*size_of_fft-1) &gt; signal_size)
+            M = M(1:index-1); % If peak is near the end, and the symbols cut off, back up and pick another one.
+        else
+            break
+        end
+    end
+    
+    agc = R(index); % Output normalizing factor for automatic gain control (optional)
+end
+</code></para>
+</content>
+
+</document>

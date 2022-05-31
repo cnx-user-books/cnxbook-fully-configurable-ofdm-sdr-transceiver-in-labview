@@ -1,0 +1,60 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>OFDM Symbol Generator (Transmitter) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34129</md:content-id>
+  <md:title>OFDM Symbol Generator (Transmitter) (LabVIEW)</md:title>
+  <md:abstract>This is the culmination of all the previously developed sub-VIs. It's job is to simply package up all the functionality nice and neat, and make it ready to place in any communications template for real-world use.</md:abstract>
+  <md:uuid>6f9288b4-9eb2-463f-8baa-8d0ef46a3e0b</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="ofdmtx_help" display="block" alt="OFDM Symbol Generator Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/ofdmtx_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the OFDM Symbol Generator Sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">Putting together all of the previously built sub-VI's into a sub-VI itself, we get a convienent block (shown above in Figure 1) to drop into any software communications template in order to complete the system. By specifying all the input data, this block will output a signal OFDM time-domain signal ready to be quadrature multiplexed out to IF and actually transmitted.
+</para>
+
+<para id="fs-id5582893">Again, though some may find this module unecessary (and pedantically speaking they would be correct), modularity and transparency goes a long way in system integration. Almost always, the benefits outweigh the minimal time needed to develop such modules.
+</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="ofdmtx_layout" display="block" alt="OFDM Symbol Generator Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/ofdmtx_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the OFDM Symbol Generator sub-VI.</caption>
+</figure>
+
+
+</para><para id="fs-id18908739">There is little to discuss here, and the really only sticking point is the use of the case structures and clusters. One could have the blocks outside the case structures and feed their outputs through the case structures. However, by placing the functions in the case structure, we decide if we actually call the function or not, instead of using the output signal. This way we reduce unneeded computational time. The cluster data type is used for visual clarity, and ease of transferring transmitter properties to other systems (like the receiver).
+</para>
+
+<para id="fs-id6014551">If you are still confused on how any of this works, check out the instructional video below, the all software test module, or email the author for more questions. The sub-VI (as well as all VIs it uses) is available below for download.</para>
+
+
+<para id="fs-id1164298671449">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a OFDM Symbol Generator Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/QWzYEy9gshs&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+
+<caption>This is the instructional video for constructing the OFDM Symbol Generator sub-VI.</caption></figure>
+</para>
+<para id="fs-id1164299023324">
+<link url="ofdmtx.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+  </para>
+<para id="fs-id29364555">NOTE: This zip file also contains all the sub-VI's shown in this module that this sub-VI uses.</para>
+</content>
+
+</document>

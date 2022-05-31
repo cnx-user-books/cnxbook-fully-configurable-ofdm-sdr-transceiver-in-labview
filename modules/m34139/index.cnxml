@@ -1,0 +1,29 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Bits-to-Words (Transmitter) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34139</md:content-id>
+  <md:title>Bits-to-Words (Transmitter) (MATLAB)</md:title>
+  <md:abstract>The fairly trivial operation of converting a set of bits to a set of words.
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the transmitter for the most current version.</emphasis></md:abstract>
+  <md:uuid>45203c27-9cd8-4f64-856f-ab30daf83ee1</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<code id="fs-id1164168712618" display="block">
+%% Bits to Words
+function words = b2w(bits, bits_per_symbol)
+%%
+    num_subcarriers = size(bits,2)/bits_per_symbol;
+    words = zeros(num_subcarriers, bits_per_symbol);
+
+    for n=1:num_subcarriers
+        words(n,1:bits_per_symbol) = bits((n-1)*bits_per_symbol+1:(n-1)*(bits_per_symbol)+bits_per_symbol);
+    end
+end
+</code>
+  </para>
+</content>
+
+</document>

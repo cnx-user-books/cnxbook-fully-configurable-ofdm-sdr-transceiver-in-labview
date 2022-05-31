@@ -1,0 +1,51 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Symbols-to-Words (Receiver) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m33850</md:content-id>
+  <md:title>Symbols-to-Words (Receiver) (MATLAB)</md:title>
+  <md:abstract>This is a basic building block in most nontrivial communications schemes: mapping received symbols to bit words. For more thorough treatment on this concept, read up on "Bit-to-Symbol Mapping."
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the receiver for the most current version.</emphasis></md:abstract>
+  <md:uuid>be661e54-765c-4735-9604-a6e4b0dfc13d</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me"><!-- Insert module text here -->
+  <code id="eip-id6408643" display="block">
+%% Symbols to Words (RECEIVER)
+%  ------------------------------------------------------------------------
+%  Description: Converts the received symbols from the OFDM symbol spectrum
+%               into binary words. It does this by correlating the received
+%               symbol with the entire symbol map through a minimization of
+%               the absolute value of the difference with each. Note that
+%               if one uses multiple constellation points in the same
+%               quandrant of the complex plane, it may be necessary to add
+%               additional logic here, or ensure the channel effect is
+%               removed by equalization.
+%
+%  Inputs: symbols - Symbols extracted from the OFDM symbol
+%          word_to_symbol_map - The complex symbols indexed by the binary
+%                               word they represent.
+%  Outputs: words - Closest matched binary words after comparison
+ 
+function words = sym2w(symbols, word_to_symbol_map)
+%%
+    num_subcarriers = size(symbols,2); % Implicit number of sub-carriers
+    bits_per_symbol = log2(size(word_to_symbol_map,2));
+    % Implicit number of bits per symbol to represent each word
+    words = zeros(num_subcarriers, bits_per_symbol); % Initialized array
+    for n=1:num_subcarriers
+        [v i] = min(abs(word_to_symbol_map-symbols(n)));
+        % Subtract each symbol with every symbol in the map, and find the
+        % minimum absolute value. This is a great estimate for finding the
+        % received word.
+        word = dec2bin(i-1,bits_per_symbol); % Convert index to binary string
+        for m=1:bits_per_symbol
+            words(n,m) = str2num(word(m)); % Convert string to number
+        end
+    end
+end
+</code></para>
+</content>
+
+</document>

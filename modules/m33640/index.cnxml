@@ -1,0 +1,18 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Introduction to OFDM and SDRs</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m33640</md:content-id>
+  <md:title>Introduction to OFDM and SDRs</md:title>
+  <md:abstract>What is OFDM? What is an SDR? Why is either important or relevant? This module addresses the nature of these questions as well as what the project aims to implement.</md:abstract>
+  <md:uuid>8bef2402-0423-4af6-8718-d8f85fada31e</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1171225068070">OFDM (Orthogonal Frequency Division Multiplexing) is the technique for transmitting data in parallel using large number of modulated carriers with harmonic frequency spacing so that the carriers are orthogonal to each other. The orthogonality allows spectral overlapping of channels that can be separated later, much like quadrature modulation.</para>
+
+    <para id="id1171207802771">SDR (Software Defined Radio) refers to a radio communication system that can be configured to send and receive a wide range of modulated digital signals across a large frequency spectrum by means of a programmable hardware platform. With the advancements made in low noise amplifiers (LNAs), analog-to-digital converters (ADCs) or samplers, and antenna technology, SDRs have become an emergent technology in communications. This will allow the same antenna or antenna array to be used for different frequency ranges, and to move the ADC as close as possible to the antenna with little or no pre-filtering, and performing the entire signal processing digitally.</para>
+    <para id="id1171229115058">In a nut shell, OFDM is a modulation scheme that rides on top of another basic type of modulation such as BPSK and QAM to allow simultaneous transmission of independent signal carriers. It is highly scalable, allowing expansion or reduction of the signal bandwidth to accommodate the dynamic creation or removal of signal carriers. As a result these unique properties, it is widely used in a variety of important applications such as mobile radio and digital broadcasting. It has also been touted as the possible scheme of choice for the predicted paradigm shift known as the cognitive radio. In our Digital Signal Processing Laboratory project, we gained a firm grasp of this exciting technology by creating an OFDM transmitter and implementing a corresponding OFDM software receiver. The transmitter modulates BPSK signals and outputs them through a communications FPGA, while the receiver uses Matlab libraries to process the captured signals to retrieve the original data. At the end of the project, the final system was shown to be able to correctly transmit and receive 64 independent signal carriers simultaneously.</para>
+<para id="fs-id1171012833201">The new project, an independent study carried on by one of the three original students with Dr. Christopher Schmitz of the University of Illinois at Urbana/Champaign, will be an all LabVIEW transceiver implemented in actual hardware. It will run on a front-end receiver utilizing National Instruments' PXI chassis populated with the 5660 digital downconverter/high-speed digitizer in conjunction with the 5671 AWG/upconverter. The goal is a real-time system that transmits and receivers over the air, so that parameters can actively be tweaked, and the resulting changes in performance can be observed.
+</para>
+  </content>
+</document>

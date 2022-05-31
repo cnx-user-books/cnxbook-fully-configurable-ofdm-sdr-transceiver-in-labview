@@ -1,0 +1,38 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Words-to-Bits (Receiver) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m33851</md:content-id>
+  <md:title>Words-to-Bits (Receiver) (MATLAB)</md:title>
+  <md:abstract>A very fundamental part of many systems, essentially a parallel to series conversion.
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the receiver for the most current version.</emphasis></md:abstract>
+  <md:uuid>5d546cb9-e5de-4f30-a46d-2f58c5901c21</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me"><code id="eip-id10841331" display="block">
+%% Words to Bits (RECEIVER)
+%  ------------------------------------------------------------------------
+%  Description: This module simply takes the demodulated words and expands
+%               them into a bit stream for ease of comparison.
+%
+%  Inputs: words - Group of bits
+%  Outputs: bits - Bit stream
+ 
+function bits = w2b(words)
+%%
+    num_subcarriers = size(words,1); % Implicit number of subcarriers
+    bits_per_symbol = size(words,2); % Implicit bits per symbol
+    total_bits = bits_per_symbol*num_subcarriers; % Total number of bits
+    bits = zeros(1,total_bits);
+ 
+    for n=1:num_subcarriers
+        for m=1:bits_per_symbol            
+            bits((n-1)*bits_per_symbol+m) = words(n,m); % Separate one by one
+        end
+    end
+end
+</code></para>
+</content>
+
+</document>

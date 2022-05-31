@@ -1,0 +1,66 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Equalization (Receiver) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34348</md:content-id>
+  <md:title>Equalization (Receiver) (LabVIEW)</md:title>
+  <md:abstract>After the data carriers are recovered, we know that if the appropriate cyclic prefix was used, our data has be cyclicly convolved with the channel impulse response. With an estimate of the channel taps, it becomes a simple division in the frequency domain to remove this undesired filtering. Embedded is a tutorial video on the construction of the sub-VI, as well as an example video on how to use the function. The file is available for download below.</md:abstract>
+  <md:uuid>0e15ca6c-df27-4a5c-bbdb-4d0dfe7985e6</md:uuid>
+</metadata>
+
+<content>
+ <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="equal_help" display="block" alt="Equalization Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/equal_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Equalization sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">In Figure 1 we show the help dialog for the Equalization sub-VI to be implemented below. The motivation is that nearly every practical channel is bandlimited, and so our received signal will ultimately be the transmitted signal filtered by the dispersive channel. The resulting intersymbol interference (ISI) is the reason why a cyclic prefix, or guard interval, is required.</para>
+
+<para id="fs-id29379547">However, even if the cyclic prefix takes the brunt of the intersymbol interference, our received OFDM symbol has still experienced cyclic convolution with the channel impulse response. Thankfully, this amounts to normal division in the frequency domain if we can estimate the channel taps.</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="equal_layout" display="block" alt="Equalization Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/equal_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Equalization sub-VI.</caption>
+</figure>
+</para><para id="fs-id18908739">The implementation to be discussed in this module can be seen above in Figure 2. It's quite simple for those familiar with basic DSP. If we know the time domain impulse response of the channel (or can estimate it), we can simply take the FFT to obtain the frequency response. After removal of the cyclic prefix, it's as if the channel frequency response was simply multiplied by our transmitted OFDM symbol with no zero-padding for either digital spectrum. Therefore, all we must do is divide to undo this unwanted distortion.</para>
+
+<para id="fs-id1164304202892">Note that we have taken advantage of our fft2sym sub-VI <link url="">implemented previously</link>. For all general questions, check out the instructional video below in Figure 3, the example use video below in Figure 4, or email the author for more information.</para>
+
+<para id="fs-id1165051738646">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a Equalization Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/rIRg2C5w31U&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the Equalization sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1165040515663">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the Equalization Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/-vtb-fBAWhQ&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the example video for using the Equalization sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="equal.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+
+  </para>
+</content>
+
+</document>

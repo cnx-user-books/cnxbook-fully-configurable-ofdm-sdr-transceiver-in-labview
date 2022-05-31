@@ -1,0 +1,45 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>All Software (Tests)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34350</md:content-id>
+  <md:title>All Software (Tests)</md:title>
+  <md:abstract>This is the first round of testing on our complete system. It is simply the transmitter and receiver modules in cascade. The motivation is simply to confirm that our system works purely in software, output to input. The VI used is available for download, and the instructional and example video are embedded below.</md:abstract>
+  <md:uuid>ded3f8b6-b81a-4b0f-8666-3965e8d49acd</md:uuid>
+</metadata>
+
+<content>
+
+<para id="fs-id34053590">In this module we're ready for a simple test. Before we can place either of our blocks into real-time communications systems, it's prudent to check that they work in an idealized situation. Thus we'd like to test them all in the HOST in LabVIEW</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="ofdm_complete_layout" display="block" alt="All Software Test Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/allsoftware_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the All Software Test.</caption>
+</figure>
+</para><para id="fs-id18908739">
+Above in Figure 1 is the setup for our test. Very straightforward. Check out the video below to see it in action, and download the VI at the bottom.</para>
+
+
+<para id="fs-id1171254760954">
+<figure id="movie2">
+ <title>Example Video</title>
+ <media id="yt-media2" display="block" alt="LabVIEW Example on using the OFDM Transmitter and Receiver blocks.">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/A4LxvNBZ71Y&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ <caption>This is the example video for using the OFDM Transmitter and Receiver blocks.</caption>
+</figure>
+</para>
+<para id="fs-id1164299023324">
+<link url="allsoftware_test.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+
+  </para>
+</content>
+
+</document>

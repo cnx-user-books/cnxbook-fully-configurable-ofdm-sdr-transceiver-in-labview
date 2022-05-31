@@ -1,0 +1,67 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Symbols-to-Words (Receiver) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34345</md:content-id>
+  <md:title>Symbols-to-Words (Receiver) (LabVIEW)</md:title>
+  <md:abstract>Once we've obtained our complex baseband data and recovered the subcarriers, it's time to make a decision. We have knowledge of what the potential values of the complex amplitudes are allowed to be, and we must fit what we receive to the closest value in the list. Therefore, an estimate of the transmitted symbol is ultimately the output. Embedded is a tutorial video on the construction of the sub-VI, as well as an example video on how to use the function. The file is available for download below.</md:abstract>
+  <md:uuid>727da27c-8a69-4c98-b2ca-e346fa83c10b</md:uuid>
+</metadata>
+
+<content>
+ <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="sym2w_help" display="block" alt="Symbols-to-Words Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/sym2w_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Symbols-to-Words sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">Above is the sub-VI we intend to build in this module. This is the first module where we've attempted to address the stochastic nature of our received data. We'll take each received symbol and compare it with our word-to-symbol map. The closest match is determined to be the most likely transmitted symbol.</para>
+
+<para id="fs-id29379547">The reason the incoming signals may not perfectly match our transmitted symbols is because realistically, computational artifacts from the FFT operation, noise, dispersive channels, quantization, and imperfect coherent carrier recovery are just a handful of the potential sources that can cause our data to change from the transmitter to the receiver.
+</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="sym2w_layout" display="block" alt="Symbols-to-Words Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/sym2w_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Symbols-to-Words sub-VI.</caption>
+</figure>
+</para><para id="fs-id18908739">Above, Figure 2 shows a LabVIEW implementation of our slicer. As alluded to, we essentially compute minimum Euclidean distance between all allowed values of our symbols (from our known map) and our received data one subcarrier at a time. It's important to note indexing is enabled for our incoming data to perform our operation one data carrier at a time, but the word-to-symbol map is not, as we want to compare each incoming data symbol with all symbols in the map.</para>
+
+<para id="fs-id1164304202892">Once we take advantage of LabVIEW's max/min function, we desire only the index as this corresponds to the decimal equivalent of our binary word. Remember LabVIEW's convention that the first element in the output array corresponds to the least significant bit. Because the number of bits varies depending on the size of the map, the truncation shown at the end is necessary to remove excess leading zeros. For all general questions, check out the instructional video below in Figure 3, the example use video below in Figure 4, or email the author for more information.</para>
+
+<para id="fs-id4587969">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a Symbols-to-Words Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/dpdp_u6lgOA&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the Symbols-to-Words sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id4776609">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the Symbols-to-Words Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/jSvw40Sp1C8&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the example video for using the Symbols-to-Words sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="sym2w.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+
+  </para>
+</content>
+
+</document>

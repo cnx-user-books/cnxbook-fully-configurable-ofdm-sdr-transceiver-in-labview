@@ -1,0 +1,28 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Symbols-to-FFT (Transmitter) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34141</md:content-id>
+  <md:title>Symbols-to-FFT (Transmitter) (MATLAB)</md:title>
+  <md:abstract>This code converts a group of complex symbols to a single complex baseband OFDM period in the time domain. Equivalently, it can be thought of as a parallel to serial operation while simultaneously modulating all the subcarriers by their complex amplitude.
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the transmitter for the most current version.</emphasis></md:abstract>
+  <md:uuid>a275e1ed-38bc-4f9d-892b-7b84ccc74bbe</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<code id="fs-id1163768262150" display="block">
+%% Symbols to FFT
+function [re im] = sym2fft(symbols, size_of_fft)
+%%
+    num_subcarriers = size(symbols,2);
+    input = [ 0 symbols(1:(num_subcarriers/2)) zeros(1,size_of_fft-num_subcarriers-1) symbols((num_subcarriers/2)+1:num_subcarriers) ];
+    output = ifft(input);
+    re = real(output);
+    im = imag(output);
+end
+</code>
+  </para>
+</content>
+
+</document>

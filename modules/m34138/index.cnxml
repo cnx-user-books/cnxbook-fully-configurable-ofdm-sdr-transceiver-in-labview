@@ -1,0 +1,27 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Add Cyclic Prefix (Transmitter) (MATLAB)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34138</md:content-id>
+  <md:title>Add Cyclic Prefix (Transmitter) (MATLAB)</md:title>
+  <md:abstract>This performs the simple but crucial task of adding the cyclic prefix for the transmission guard interval. This will protect real systems against multipath fading.
+<emphasis>NOTE: The MATLAB library was used in the initial version of the design but has since been replaced by an updated LabVIEW module. Please see the LabVIEW portion of the transmitter for the most current version.</emphasis></md:abstract>
+  <md:uuid>58777273-4725-48a7-b29d-70dd0ad95dcb</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<code id="fs-id1163753630876" display="block">
+%% Symbols to FFT
+function [re_cyc im_cyc] = cyc(re, im, perc_cyc)
+%%
+    size_of_fft = size(re,2);
+    size_of_cyc = round(size_of_fft*(1-perc_cyc))+1;
+    re_cyc = [re(size_of_cyc:size_of_fft) re];
+    im_cyc = [im(size_of_cyc:size_of_fft) im];
+end
+</code>
+  </para>
+</content>
+
+</document>

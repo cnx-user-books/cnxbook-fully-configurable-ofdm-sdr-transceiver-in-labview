@@ -1,0 +1,86 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Symbols-to-FFT (Transmitter) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34128</md:content-id>
+  <md:title>Symbols-to-FFT (Transmitter) (LabVIEW)</md:title>
+  <md:abstract>This module is a tutorial on performing the parallel symbols to IFFT (time domain) operation of the OFDM transmitter. Often the most confusing and least intuitive block in the OFDM chain, a thorough understanding of the digital Fourier domain is recommended prior to tackling this function.</md:abstract>
+  <md:uuid>72b454f4-860f-4deb-823a-c26dcd4fe461</md:uuid>
+</metadata>
+
+<content>
+  <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="sym2fft_help" display="block" alt="Symbols-to-FFT Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/sym2fft_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Symbols-to-FFT Sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">This function (shown above in Figure 1) implements the most important and often the most confusing part of the OFDM transmitter chain: converting the parallel group of symbols to a continuous time-domain signal. Note that this module requires the Digital-to-Analog coverter Rate (D/A Rate) and the fundamental frequency of the subcarriers. Both of these parameters were not needed until now, because we've been discretely preparing our OFDM data.</para>
+
+<para id="fs-id27684425">The most frequently asked question about OFDM is "Why IFFT?" To those unfamiliar, IFFT stands for "Inverse Fast Fourier Transform." This is simply an efficient algorithm for performing the Inverse Discrete Fourier Transform, the sampled version of the IDTFT (Inverse Discrete Time Fourier Transform) which is the Fourier Transform for discretized signals. Confused yet? Don't worry. Simply understand the IFFT's function is to take the frequency-domain representation of a signal, and produce the time-domain equivalent.</para>
+
+<para id="fs-id29361854">So again you ask, why are we performing this step? Aren't we already in the time domain? Well, it's all rather relative. We know for OFDM the 'O' stands for Orthogonality. This attractive feature of OFDM signals makes the subcarriers insensitive to spectral overlap, much like Quadrature Multiplexing where we mix signals with cosine and sine of the same frequency. Thus as long as we modulate a variety of carriers all orthogonal to one another, we can neglect overlap of their spectra and still always recover each carrier separately without distortion. The orthogonality for OFDM comes from finding a fundamental frequency (lowest), and mixing all the other carriers with multiples of this fundamental, or harmonics. So how do we implement this?
+</para>
+
+<para id="fs-id28379438">Okay, let's look at a 32-subcarrier OFDM signal. We could modulate 32 frequencies with our 32 symbols and add them up, but this is extremely inefficient. Instead, we can start in the frequency domain, and place our symbols in adjacent samples. By doing this, because the samples are periodic, we're guarunteed to have all the frequency samples orthogonal to the first non-DC frequency. Then, since we can use Quadrature Multiplexing later on, we can simply place 15 symbols in the first 15 samples after DC, insert a bunch of zeros, and then place the last 15 symbols in the last 15 spots. So we now have 32 subcarriers modulated: +-fo, our fundamnetal, +-2fo, ... , +-14fo in the frequency domain. Essentially what we've done is build our signal from the spectrum. Because we have done this without any kind of conjugate symettry (at least not planned any), we will get a complex time-domain signal when the inverse FFT is taken. This is okay! We eventually will modulate cosine at our intermediate frequency with the real part of our baseband signal, and the imaginary part with sine.
+</para>
+
+<para id="fs-id15192333">Another way of looking at this is that we're simpling doing a parallel to serial operation. Let's get on to the actual implementation in LabVIEW.</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="sym2fft_layout" display="block" alt="Symbols-to-FFT Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/sym2fft_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Symbols-to-FFT sub-VI.</caption>
+</figure>
+
+
+</para><para id="fs-id18908739">Above we see the actual block diagram. Though it can appear overwhelming, as long as the theory discussed above is understood, the rest is rather simple. In fact, everything we discussed above is nearly implemented in one block by the built in IFFT function! Everything we see surrounding it is put in place for user-friendliness and flexability.</para>
+
+
+<para id="fs-id1164304202892">In case an injected carrier for ease of receiving is desired, the user can specify a carrier symbol. The array size divided by two and rounding simply is to find out if there is an even or odd number of subcarriers. If even, the carrier specified is injected. If odd, the DC frequency is injected with the first symbol, so the lone symbol will take the place of the carrier for the sake of symettry. The reason the round toward infinity is used is simply because of the way the split array function works. The split array function simply truncates the number and cuts the array at that point, so by rounding up the odd carrier will always be in the first half.</para>
+
+
+<para id="fs-id8712745">The second half of the split is added to the end of the frequency domain. The only magic then appears in between: how many zeros do we inject and why? The answer isn't as direct, but it is a very fundamental concept. We want to conserve bandwidth, and so this is the motivation between bunching up the subcarriers as close to DC as possible. In addition, the easiest and most efficient way to make them orthogonal is to place a symbol at each sample. This way they're all related to the first non-DC frequency which is itself a fraction of the sampling (D/A) frequency.</para>
+
+<para id="fs-id22579613">Now, we want to ensure these relationships are maintained, as well as a few more. The user can specify the exact fundamental frequency desired, as well as the ultimate D/A rate. Two things must hold in the spectrum then: the fundamental frequency must be related to the D/A rate appropriately and in the first sample, and the Nyquist Rate of the system must be half the sampling frequency. If any of this is completely new, review the fundamentals of Digital Signal Processing (DSP). This constraint is the reason we choose the number of zeros, and why we want to choose our fundamental frequency such that sampling_freq/(2*fundamental_freq) is a whole number. Stated another way, the Nyquist Rate is evenly divisible by our fundamental. Once again, we can say the Nyquist Rate is an integer multiple of the Fundamental Frequency. This should be apparent from the above discussion. Afterall, halfway through our samples we should encounter the Nyquist Rate, the highest representable digital frequency, half the sampling rate. Every sample before this will be a fraction of this frequency. If this frequency exists at Sample 32, then our fundamental should be 1/32th of the Nyquist rate, as we will place it on a sample directly (no interpolation).
+</para>
+
+<para id="fs-id21310327">While a more generalized procedure is certainly possible, it's simply not practical in the face of transparency and computational complexity. In addition, sample rate conversion is a topic in and of itself, and any of those advanced techniques can be applied to the signal externally before transmission.</para>
+
+<para id="fs-id29359842">If you are still confused on how this works, check out the instructional and example video below or email the author for more questions. The sub-VI is available below for download.</para>
+
+<para id="fs-id1164298671449">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a Symbols-to-FFT Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/PFeAlHbhkX8&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the Symbols-to-FFT prefix sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1168200156979">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the Symbols -to-FFT Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/-TmALixLjF4&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the example video for using the Symbols-to-FFT sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="sym2fft.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+  </para>
+</content>
+
+</document>

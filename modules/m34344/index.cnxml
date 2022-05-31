@@ -1,0 +1,65 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Words-to-Bits (Receiver) (LabVIEW)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m34344</md:content-id>
+  <md:title>Words-to-Bits (Receiver) (LabVIEW)</md:title>
+  <md:abstract>This is the instructional module for construction and use of the words-to-bits sub-VI for our OFDM receiver chain. Though somewhat trivial in nature, keeping it as it's own sub-VI helps maintain modularity should we wish to pursue more advanced implementations in the future. Embedded is a tutorial video on the construction of the sub-VI, as well as an example video on how to use the function. The file is available for download below.</md:abstract>
+  <md:uuid>2687633b-1819-481f-be1b-c37263be694d</md:uuid>
+</metadata>
+
+<content>
+ <para id="delete_me">
+<figure id="help">
+  <title>Input/Outputs and Help</title>
+  <media id="w2b_help" display="block" alt="Words-to-Bits Inputs/Outputs and Help in LabVIEW">  
+     <image mime-type="image/png" src="../../media/w2b_help.png"/>
+  </media>
+  <caption>This is the LabVIEW help and block description for the Word-to-Bits sub-VI.</caption>
+</figure>
+</para>
+
+<para id="fs-id34053590">We come again to a seemingly undeserving sub-VI shown above. While it may not warrant a sub-VI at present, future implementations will benefit from it's separation from other sub-VIs. This way, upgrading and changing individual parts will have minimal impact on the adjacent subsystems.</para>
+
+<para id="fs-id33938971">
+<figure id="layout">
+  <title>Block Diagram Layout</title>
+  <media id="w2b_layout" display="block" alt="Words-to-Bits Layout Block Diagram in LabVIEW">  
+     <image mime-type="image/png" src="../../media/w2b_layout.png"/>
+  </media>
+  <caption>This is the LabVIEW block diagram for the Words-to-Bits sub-VI.</caption>
+</figure>
+</para><para id="fs-id18908739">
+The above figure is our simple implementation as discussed above. All we're doing is taking advantage of LabVIEW's reshape array function. We're reshaping our two dimensional array defined by the input integers to one continuous array comprising one dimension.</para>
+
+<para id="fs-id1164304202892">Note that optimal implementations at lower levels could be achieved implicitly by how the memory is mapped. Therefore this module is simply a convenient educational tool for transparency in observing the overall OFDM transceiver hierarchy. For any inquiries, check out the instructional video below in Figure 3, the example use video below in Figure 4, or email the author for more information.</para>
+
+<para id="fs-id1167610495759">
+<figure id="movie"><title>Instructional Video</title><media id="yt-media" display="block" alt="LabVIEW Tutorial on Constructing a Words-to-Bits Sub-VI">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/q4_1VWejcgI&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the instructional video for constructing the Words-to-Bits sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1167615869329">
+<figure id="movie2"><title>Example Video</title><media id="yt-media2" display="block" alt="LabVIEW Example on using the Words-to-Bits Sub-VI">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/pxURvYHCK2A&amp;hl=en&amp;fs=1&amp;rel=0" width="640" height="505">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+ 
+<caption>This is the example video for using the Words-to-Bits sub-VI.</caption></figure>
+</para>
+
+<para id="fs-id1164299023324">
+<link url="w2b.zip"><emphasis>Download This LabVIEW sub-VI</emphasis></link>
+
+  </para>
+</content>
+
+</document>
